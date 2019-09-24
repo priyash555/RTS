@@ -13,7 +13,7 @@ class Train(models.Model):
     status = models.CharField(max_length=100)
     
     def __str__(self):
-        return "%s's Train" % self.name
+        return "%s Train" % self.name
 
 class Seat(models.Model):
     seat_id = models.CharField(max_length=100)
@@ -22,12 +22,14 @@ class Seat(models.Model):
     date = models.DateField()
   
     def __str__(self):
-        return "%s's Seat" % self.seat_id
+        return "%s's " % self.train.name + self.seat_id
 
 class Ticket(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     pnr = models.CharField(max_length=100)
     status = models.CharField(max_length=100)
+    # train = models.ForeignKey(Train,on_delete=models.CASCADE)
+    seat = models.OneToOneField(Seat,blank=True,on_delete=models.CASCADE)
 
 
     def __str__(self):
