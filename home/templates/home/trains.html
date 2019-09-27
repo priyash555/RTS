@@ -13,10 +13,13 @@
 
 
 <!--   </form>-->
+
    {{trains.count}}
 {% for train in trains%}
- <li>{{train.name}}</li>
-{% endfor%}
+ <li>    
+   <a href="">{{train.name}}</a>- {{train.source}} {{train.departure_time}} - {{train.destination}} {{train.arrival_time}}</li>
+        
+ {% endfor%}
 {% endif %}
 </div>
   <script>
