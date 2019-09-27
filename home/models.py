@@ -34,3 +34,16 @@ class Ticket(models.Model):
 
     def __str__(self):
         return "%s's Ticket" % self.user
+
+class Search(models.Model):
+
+    to=models.CharField(max_length=100)
+    fro=models.CharField(max_length=100)
+
+    class Meta:
+     = _("Search")
+        verbos = _("Searchs")
+
+    def __str__(self):
+        return self.name
+)
