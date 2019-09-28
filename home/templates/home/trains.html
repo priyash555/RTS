@@ -17,12 +17,13 @@
    {{trains.count}}
 {% for train in trains%}
  <li>    
-   <a href="">{{train.name}}</a>- {{train.source}} {{train.departure_time}} - {{train.destination}} {{train.arrival_time}}</li>
+   <a href="{%url 'home-book' train.id%}">{{train.name}}</a>- {{train.source}} {{train.departure_time}} - {{train.destination}} {{train.arrival_time}}</li>
         
  {% endfor%}
 {% endif %}
 </div>
   <script>
+  
   $(document).ready(function() {
 $('#hi').click(function(){
     var source,destination;

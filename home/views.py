@@ -1,8 +1,8 @@
 from django.shortcuts import render
-from .models import Train
+from .models import Train, Ticket
 from django.template.loader import render_to_string
 from django.http import HttpResponse,HttpResponseRedirect,JsonResponse
-
+from .forms import ticket
 
 
 # Create your views here.
@@ -29,5 +29,10 @@ def trains(request):
         html = render_to_string('home/trains.html',context,request=request)
         return JsonResponse({'form': html})
 
-def ticketbook(request,pk):
-    print(pk)
+def ticketbook(request,id):
+    train = Train.objects.filter(id=id).first()
+    return render(request,'home/book.html',{'train':train})
+
+def ticketbk(request):
+    form = ticket()
+    return render(request,'home/tick.html',{'form':form})

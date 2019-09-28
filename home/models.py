@@ -15,6 +15,8 @@ class Train(models.Model):
     def __str__(self):
         return "%s Train" % self.name
 
+    def get_absolute_url(self):
+        return reverse('home-book', kwargs={'pk':self.pk})
     
 
 # class Seat(models.Model):
