@@ -30,5 +30,6 @@ def trains(request):
         html = render_to_string('home/trains.html',context,request=request)
         return JsonResponse({'form': html})
 
-def ticketbook(request,pk):
-    print(pk)
+def ticketbook(request,id):
+    train = Train.objects.filter(id=id)
+    return render(request,'home/book.html',{'train':train})
