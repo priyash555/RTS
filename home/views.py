@@ -17,8 +17,10 @@ def trains(request):
         print("aaya")
         source = request.POST.get('source',None)
         destination = request.POST.get('destination',None)
+        date = request.POST.get('date',None)
         print(source)
         print(destination)
+        print(date)
         trains=[]
         ptrains = (Train.objects.filter(source__iexact=source))
         for i in ptrains:
