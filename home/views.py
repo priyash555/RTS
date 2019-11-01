@@ -51,6 +51,7 @@ def realbook(request,id):
                 if i.train == train:
                         g=g+1
         if(g>60):
+<<<<<<< HEAD
                 nn = g-60+1
                 jj = str(nn)
                 status = "WL "+jj
@@ -59,6 +60,12 @@ def realbook(request,id):
                 g= g+1
                 nn = str(g)
                 status = "CNF Seat No. "+nn
+=======
+                status = "Waiting List"
+        # return render(request,'home/starting.html')
+        else:
+                status = "Confirm"
+>>>>>>> e8fecc7d18b3e27a48e8012fed4f2f3dfdfc237e
         o = str(date)
         p = o[0:4]
         p = p + o[5:7]

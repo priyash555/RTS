@@ -1,0 +1,22 @@
+body
+{
+    background-image: url('../img/sample.jpg');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    align-content: center;
+    text-align: center;
+}
+
+input
+{
+    align-content: center;
+    padding: 1%;
+    margin: 5px;
+}
+
+.form-group
+{
+    padding: 2%;
+    align-content: center;
+    background-color: white;
+}
