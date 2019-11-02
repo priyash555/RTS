@@ -104,3 +104,11 @@ def canceltic(request,pnr):
                 break
     tic.delete()
     return redirect('home-home')
+
+def pnrstatus(request):
+    if request.method == 'POST':
+        pnr = request.POST.get('pnr',None)
+        print(pnr)
+        return redirect('tickt', pnr=pnr)
+    else :
+        return render(request,'home/pnrstatus.html')

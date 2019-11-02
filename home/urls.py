@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views import starting,trains,ticketbook,ticketbk,realbook,ticket,tickt,canceltic
+from .views import starting,trains,ticketbook,ticketbk,realbook,ticket,tickt,canceltic,pnrstatus
 
 
 urlpatterns = [
@@ -12,4 +12,5 @@ urlpatterns = [
     path('book/<int:id>/form/realbook/',realbook,name="home-realbook"),
     path('ticket/<str:pnr>/',tickt,name="tickt"),
     path('canceltic/<str:pnr>/',canceltic,name="home-cantic"),
+    path('pnrstatus',pnrstatus,name="pnrstatus"),
 ]
