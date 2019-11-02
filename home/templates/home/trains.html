@@ -1,7 +1,7 @@
 {% if user.is_authenticated %}
 
 <div id="trains-section">
-<!-- <form  method="Post" id="like_post">-->
+ <form  method="Post" id="like_post">
     <br>
                  {% csrf_token %}
                  <div class="form-group">
@@ -12,8 +12,7 @@
                     <button type="button" id="hi" class="btn btn-primary">Submit</button>
                  </div>
 
-
-<!--   </form>-->
+  </form>
 
    {{trains.count}}
 {% for train in trains%}
