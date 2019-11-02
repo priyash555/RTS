@@ -1,3 +1,4 @@
+ 
 {% extends './basic.html' %}
 
 {% block main %}
@@ -6,6 +7,6 @@
   <div>
     {{ train.name }}
 </div>
-<button>Book</button>
+<a href="{%url 'home-bookform' train.id%}"><button>Book</button></a>
 
 {% endblock main %}
