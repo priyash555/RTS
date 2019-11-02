@@ -36,7 +36,11 @@ class Ticket(models.Model):
     passenger_name = models.CharField(max_length=100)
     age = models.CharField(max_length=100)
     date = models.DateField()
+    seatno=models.IntegerField()
     
     def __str__(self):
         return "%s " % self.passenger_name + self.pnr
+
+    def get_absolute_url(self):
+        return reverse('tickt', kwargs={'pnr':self.pnr})
 

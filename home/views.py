@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Train, Ticket
 from django.template.loader import render_to_string
 from django.http import HttpResponse,HttpResponseRedirect,JsonResponse
@@ -47,18 +47,22 @@ def realbook(request,id):
         date = request.POST.get('date',None)
         tcount = Ticket.objects.filter(date=date)
         g=0
+        seatnos=[]
+        for i in range(0,60):
+            seatnos.append(0)
         for i in tcount:
                 if i.train == train:
+                        seatnos[i.seatno]=1;
                         g=g+1
         if(g>60):
-                nn = g-60+1
-                jj = str(nn)
-                status = "WL "+jj
+                status = "Waiting List"
         # return render(request,'home/starting.html')
         else:
-                g= g+1
-                nn = str(g)
-                status = "CNF Seat No. "+nn
+                for i in range(0,60):
+                    if seatnos[i]==0:
+                        seatno=i
+                        break
+                status = "Confirm"
         o = str(date)
         p = o[0:4]
         p = p + o[5:7]
@@ -73,8 +77,30 @@ def realbook(request,id):
         age = request.POST.get('age',None)
         ticket = Ticket(user=user,
         pnr=pnr,status=status,date=date,train=train,passenger_name=passenger_name,
-        age=age
+        age=age,seatno=seatno
         )
         ticket.save()
-        print(passenger_name)
-        return render(request,'home/starting.html')
+        print(ticket)
+        return redirect('home-home')
+
+
+def tickt(request,pnr):    
+    tic = Ticket.objects.filter(pnr=pnr).first()
+    print(tic)
+    return render(request,'home/ticke.html',{'tic':tic})
+
+def canceltic(request,pnr):
+    tic = Ticket.objects.filter(pnr=pnr).first()
+    if tic.status == "Confirm":
+        t = tic.seatno
+        seatnos=[]
+        for i in range(0,60):
+            seatnos.append(0)
+        tics = Ticket.objects.filter(date=tic.date)
+        for ti in tics:
+            if ti.seatno>60:
+                ti.seatno=t
+                ti.status="Confirm"
+                break
+    tic.delete()
+    return redirect('home-home')
