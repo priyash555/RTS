@@ -1,0 +1,14 @@
+ 
+{% extends './basic.html' %}
+
+{% block main %}
+    <br>
+
+  <div>
+  hello
+    {{ tic.user }}
+</div>
+
+<a href={% url "home-cantic" tic.pnr %}>Cancel Ticket</a>
+
+{% endblock main %}
