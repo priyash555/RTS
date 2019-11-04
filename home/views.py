@@ -48,17 +48,18 @@ def realbook(request,id):
         tcount = Ticket.objects.filter(date=date)
         g=0
         seatnos=[]
-        for i in range(0,60):
+        for i in range(1,20):
             seatnos.append(0)
         for i in tcount:
                 if i.train == train:
                         seatnos[i.seatno]=1;
                         g=g+1
-        if(g>60):
+        if(g>=3):
                 status = "Waiting List"
+                seatno=15
         # return render(request,'home/starting.html')
         else:
-                for i in range(0,60):
+                for i in range(1,4):
                     if seatnos[i]==0:
                         seatno=i
                         break
@@ -81,7 +82,7 @@ def realbook(request,id):
         )
         ticket.save()
         print(ticket)
-        return redirect('home-home')
+        return redirect('tickt', pnr=pnr)
 
 
 def tickt(request,pnr):    
@@ -92,15 +93,21 @@ def tickt(request,pnr):
 def canceltic(request,pnr):
     tic = Ticket.objects.filter(pnr=pnr).first()
     if tic.status == "Confirm":
+        print("oihv")
         t = tic.seatno
         seatnos=[]
-        for i in range(0,60):
-            seatnos.append(0)
         tics = Ticket.objects.filter(date=tic.date)
         for ti in tics:
-            if ti.seatno>60:
+            print(ti.status)
+            if ti.status == "Waiting List":
                 ti.seatno=t
                 ti.status="Confirm"
+                ticket = Ticket(user=ti.user,
+                pnr=ti.pnr,status="Confirm",date=ti.date,train=ti.train,passenger_name=ti.passenger_name,
+                age=ti.age,seatno=t
+                )
+                ticket.save()
+                ti.delete()
                 break
     tic.delete()
     return redirect('home-home')
@@ -112,3 +119,7 @@ def pnrstatus(request):
         return redirect('tickt', pnr=pnr)
     else :
         return render(request,'home/pnrstatus.html')
+
+
+def about(request):
+    return render(request,'home/about.html')

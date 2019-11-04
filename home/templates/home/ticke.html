@@ -5,8 +5,17 @@
     <br>
 
   <div>
-  hello
-    {{ tic.user }}
+    Passenger name : {{ tic.passenger_name }}<br>
+    PNR number : {{ tic.pnr }}<br>
+    Passenger age : {{ tic.age }}<br>
+    Passenger train : {{ tic.train }}<br>
+    Ticket Status : {{ tic.status }}<br>
+    From : {{ tic.train.source }}<br>
+    To : {{ tic.train.destination }}<br>
+    Date : {{ tic.date }}<br>
+    {% if tic.status == 'Confirm' %}
+    Seat No : {{ tic.seatno }}
+    {% else %}{% endif %}
 </div>
 
 <a href={% url "home-cantic" tic.pnr %}>Cancel Ticket</a>
