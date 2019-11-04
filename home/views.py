@@ -3,6 +3,8 @@ from .models import Train, Ticket
 from django.template.loader import render_to_string
 from django.http import HttpResponse,HttpResponseRedirect,JsonResponse
 from .forms import ticket
+from django.conf import settings # new
+from django.views.generic.base import TemplateView
 
 
 # Create your views here.
@@ -123,3 +125,12 @@ def pnrstatus(request):
 
 def about(request):
     return render(request,'home/about.html')
+
+
+class payment(TemplateView):
+    template_name = 'home/payment.html'
+
+    def get_context_data(self, **kwargs): # new
+        context = super().get_context_data(**kwargs)
+        context['key'] = settings.STRIPE_PUBLISHABLE_KEY
+        return context

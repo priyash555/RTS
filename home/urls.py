@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views import starting,trains,ticketbook,ticketbk,realbook,ticket,tickt,canceltic,pnrstatus,about
+from .views import starting,trains,ticketbook,ticketbk,realbook,ticket,tickt,canceltic,pnrstatus,about,payment
 
 
 urlpatterns = [
@@ -14,4 +14,5 @@ urlpatterns = [
     path('ticket/<str:pnr>/',tickt,name="tickt"),
     path('canceltic/<str:pnr>/',canceltic,name="home-cantic"),
     path('pnrstatus',pnrstatus,name="pnrstatus"),
+    path('payment/', payment.as_view(), name='payment'),
 ]
