@@ -7,6 +7,6 @@
   <div>
     {{ train.name }}
 </div>
-<a href="{%url 'home-bookform' train.id%}"><button>Book</button></a>
+<a href="{%url 'home-bookform' train.id train.date%}"><button>Book</button></a>
 
 {% endblock main %}

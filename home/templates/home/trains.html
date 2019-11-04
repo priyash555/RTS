@@ -17,7 +17,9 @@
    {{trains.count}}
 {% for train in trains%}
  <li>    
-   <a href="{%url 'home-book' train.id%}">{{train.name}}</a>- {{train.source}} {{train.departure_time}} - {{train.destination}} {{train.arrival_time}}</li>
+   <a href="{%url 'home-book' train.id train.date %}">{{train.name}}</a>- {{train.source}} {{train.departure_time}} - {{train.destination}} {{train.arrival_time}} {{train.count}}
+    <p>availability :  <b>{{train.count}}</b></p><br>
+  </li>
         
  {% endfor%}
 {% endif %}
@@ -29,6 +31,7 @@ $('#hi').click(function(){
     var source,destination,date;
     source = $('#source').val();
     destination = $('#destination').val();
+    date = $('#date').val();
       $.ajax({  
                type: "POST",
                url: "trains/",

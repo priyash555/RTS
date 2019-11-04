@@ -5,6 +5,7 @@ from django.http import HttpResponse,HttpResponseRedirect,JsonResponse
 from .forms import ticket
 from django.conf import settings # new
 from django.views.generic.base import TemplateView
+import json
 
 
 # Create your views here.
@@ -25,31 +26,51 @@ def trains(request):
         trains=[]
         ptrains = (Train.objects.filter(source__iexact=source))
         for i in ptrains:
+            basic=[]
             print(i.destination.upper())
             if(i.destination.upper() == destination.upper()):
-                trains.append(i)
+                basic.append(i)
+                ticketcheck = Ticket.objects.filter(date=date)
+                countticket =0
+                for j in ticketcheck:
+                        if(j.train == i):
+                                countticket=countticket+1
+                basic.append(countticket)
+                i.count=3-countticket
+                if i.count<=0:
+                        z="WL "
+                        i.count=str((-i.count)+1)
+                        i.count =z+i.count
+                i.date = date
+            trains.append(i)
 
+        print(trains)
+        print("jbfjbjhfbdubcd")
         context={'trains':trains}
+
         html = render_to_string('home/trains.html',context,request=request)
         return JsonResponse({'form': html})
 
-def ticketbook(request,id):
+def ticketbook(request,id,date):
     train = Train.objects.filter(id=id).first()
+    train.date=date
+    print("ticketbokk")
+    print(date)
     return render(request,'home/book.html',{'train':train})
 
-def ticketbk(request,id):
+def ticketbk(request,id,date):
     print("aayay habhah")    
     form = ticket()
     key = settings.STRIPE_PUBLISHABLE_KEY
     train = Train.objects.filter(id=id).first()
+    train.date=date
     amount = train.amount
     return render(request,'home/tick.html',{'form':form, 'key':key, 'amount':amount})
 
-def realbook(request,id):
+def realbook(request,id,date):
     if request.method == 'POST':
         user=request.user
         train = Train.objects.filter(id=id).first()
-        date = request.POST.get('date',None)
         tcount = Ticket.objects.filter(date=date)
         g=0
         seatnos=[]
