@@ -11,6 +11,7 @@ class Train(models.Model):
     departure_time = models.TimeField(max_length=100)
     arrival_time = models.TimeField(max_length=100)
     status = models.CharField(max_length=100)
+    amount = models.IntegerField()
     
     def __str__(self):
         return "%s Train" % self.name

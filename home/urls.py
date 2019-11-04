@@ -14,5 +14,5 @@ urlpatterns = [
     path('ticket/<str:pnr>/',tickt,name="tickt"),
     path('canceltic/<str:pnr>/',canceltic,name="home-cantic"),
     path('pnrstatus',pnrstatus,name="pnrstatus"),
-    path('payment/', payment.as_view(), name='payment'),
+    path('payment/', payment, name='payment'),
 ]

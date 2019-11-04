@@ -40,7 +40,10 @@ def ticketbook(request,id):
 def ticketbk(request,id):
     print("aayay habhah")    
     form = ticket()
-    return render(request,'home/tick.html',{'form':form})
+    key = settings.STRIPE_PUBLISHABLE_KEY
+    train = Train.objects.filter(id=id).first()
+    amount = train.amount
+    return render(request,'home/tick.html',{'form':form, 'key':key, 'amount':amount})
 
 def realbook(request,id):
     if request.method == 'POST':
@@ -127,10 +130,6 @@ def about(request):
     return render(request,'home/about.html')
 
 
-class payment(TemplateView):
-    template_name = 'home/payment.html'
-
-    def get_context_data(self, **kwargs): # new
-        context = super().get_context_data(**kwargs)
-        context['key'] = settings.STRIPE_PUBLISHABLE_KEY
-        return context
+def payment(request):
+    key = settings.STRIPE_PUBLISHABLE_KEY
+    return render(request,'home/payment.html',{'key':key})
