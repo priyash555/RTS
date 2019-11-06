@@ -3,6 +3,9 @@ from django.urls import path, include
 from django.conf.urls import url
 from .views import reg,profile,activate
 from django.contrib.auth import views as auth_views
+from django.conf import settings
+from django.conf.urls.static import static
+from users import views as user_views
 
 
 urlpatterns = [
@@ -12,4 +15,4 @@ urlpatterns = [
     path('profile/', profile , name="users-profile"),
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         activate, name='activate'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
