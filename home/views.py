@@ -118,24 +118,25 @@ def tickt(request,pnr):
 
 def canceltic(request,pnr):
     tic = Ticket.objects.filter(pnr=pnr).first()
-    if tic.status == "Confirm":
-        print("oihv")
-        t = tic.seatno
-        seatnos=[]
-        tics = Ticket.objects.filter(date=tic.date)
-        for ti in tics:
-            print(ti.status)
-            if ti.status == "Waiting List":
-                ti.seatno=t
-                ti.status="Confirm"
-                ticket = Ticket(user=ti.user,
-                pnr=ti.pnr,status="Confirm",date=ti.date,train=ti.train,passenger_name=ti.passenger_name,
-                age=ti.age,seatno=t
-                )
-                ticket.save()
-                ti.delete()
-                break
-    tic.delete()
+    if(tic.user == request.user):
+        if tic.status == "Confirm":
+            print("oihv")
+            t = tic.seatno
+            seatnos=[]
+            tics = Ticket.objects.filter(date=tic.date)
+            for ti in tics:
+                print(ti.status)
+                if ti.status == "Waiting List":
+                    ti.seatno=t
+                    ti.status="Confirm"
+                    ticket = Ticket(user=ti.user,
+                    pnr=ti.pnr,status="Confirm",date=ti.date,train=ti.train,passenger_name=ti.passenger_name,
+                    age=ti.age,seatno=t
+                    )
+                    ticket.save()
+                    ti.delete()
+                    break
+        tic.delete()
     return redirect('home-home')
 
 def pnrstatus(request):

@@ -18,6 +18,9 @@
     {% else %}{% endif %}
 </div>
 
+{% if request.user == tic.user %}
 <a href={% url "home-cantic" tic.pnr %}>Cancel Ticket</a>
+{% endif %}
+
 
 {% endblock main %}
