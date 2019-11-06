@@ -114,6 +114,8 @@ def realbook(request,id,date):
 def tickt(request,pnr):    
     tic = Ticket.objects.filter(pnr=pnr).first()
     print(tic)
+    if tic == None:
+        return render(request,'home/notick.html')
     return render(request,'home/ticke.html',{'tic':tic})
 
 def canceltic(request,pnr):
@@ -155,3 +157,7 @@ def about(request):
 def payment(request):
     key = settings.STRIPE_PUBLISHABLE_KEY
     return render(request,'home/payment.html',{'key':key})
+
+def booking(request):    
+    tic = Ticket.objects.filter(user=request.user)
+    return render(request,'home/booking.html',{'tic':tic})
