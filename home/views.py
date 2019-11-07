@@ -80,16 +80,16 @@ def realbook(request,id,date):
                 if i.train == train:
                         seatnos[i.seatno]=1;
                         g=g+1
-        if(g>=3):
+        if g>=3:
                 status = "Waiting List"
-                seatno=15
+                seatno = 15
         # return render(request,'home/starting.html')
         else:
-                for i in range(1,4):
-                    if seatnos[i]==0:
-                        seatno=i
-                        break
-                status = "Confirm"
+            for i in range(1,4):
+                if seatnos[i]==0:
+                    seatno=i
+                    break
+            status = "Confirm"
         o = str(date)
         p = o[0:4]
         p = p + o[5:7]
