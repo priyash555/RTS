@@ -9,7 +9,25 @@
   <h1>Welcome {{ user.username }}</h1>
 
   <div>
-    {% include 'home/trains.html' %}
+    {% if user.is_authenticated %}
+
+
+<div id="search">
+ <form  method="POST">
+    <br>
+                 {% csrf_token %}
+                 <div class="form-group">
+        
+                     <input class"inp" type="text" id="source" name="source" value="" placeholder="source" ></br></br></br>
+                     <input class"inp" type="text" id="destination" name="destination" value="" placeholder="destination" ></br></br></br>
+                     <input class"inp" type="date" id="date" name="date" placeholder="Date"></br></br></br>
+                    <button type="submit" id="hig" class="btn btn-primary">Submit</button>
+                 </div>
+
+  </form>
+</div>
+ 
+ {% endif %}
 </div>
 
 {% endblock main %}

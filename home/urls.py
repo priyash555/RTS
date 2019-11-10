@@ -1,12 +1,11 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views import starting,trains,ticketbook,ticketbk,realbook,ticket,tickt,canceltic,pnrstatus,about,payment,booking
+from .views import starting,ticketbook,ticketbk,realbook,ticket,tickt,canceltic,pnrstatus,about,payment,booking,search
 
 
 urlpatterns = [
     path('', starting, name="home-home"),
     path('about/', about, name="about"),
-    path('trains/',trains,name="home-trains"),
     path('book/<int:id>/<str:date>/',ticketbook,name="home-book"),
     path('book/<int:id>/<str:date>/form/',ticketbk,name="home-bookform"),
     path('tickbk/',ticketbk,name="home-bk"),
@@ -16,4 +15,5 @@ urlpatterns = [
     path('pnrstatus',pnrstatus,name="pnrstatus"),
     path('payment/', payment, name='payment'),
     path('booking/', booking, name='booking'),
+    path('search/<str:source>/<str:destination>/<str:date>/', search, name='search'),
 ]

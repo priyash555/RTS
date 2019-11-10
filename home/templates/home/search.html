@@ -1,0 +1,18 @@
+ {% extends './basic.html' %}
+
+
+
+
+
+{% block main %}
+ 
+ {{trains.count}}
+{% for train in trains%}
+ <li>    
+    {{train.name}}- {{train.source}} {{train.departure_time}} - {{train.destination}} {{train.arrival_time}} {{train.count}}
+    <p>availability :  <b>{{train.count}}</b></p><br>
+    <a href="{%url 'home-bookform' train.id train.date%}"><button>Book</button></a>
+  </li>
+  {% endfor %}
+
+{% endblock main %}

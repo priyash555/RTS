@@ -1,4 +1,6 @@
 from django.db import models
+from datetime import date
+
 
 
 from django.contrib.auth.models import User
@@ -44,4 +46,7 @@ class Ticket(models.Model):
 
     def get_absolute_url(self):
         return reverse('tickt', kwargs={'pnr':self.pnr})
+
+    def is_past_due(self):
+        return date.today() > self.date
 
