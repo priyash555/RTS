@@ -5,14 +5,16 @@
 
 
 {% block main %}
- 
+ <br><br>
+ <ul class="list-group list-group-flush">
  {{trains.count}}
 {% for train in trains%}
- <li>    
-    {{train.name}}- {{train.source}} {{train.departure_time}} - {{train.destination}} {{train.arrival_time}} {{train.count}}
-    <p>availability :  <b>{{train.count}}</b></p><br>
+ <li class="list-group-item">    
+    {{train.name}}<br> 
+    {{train.source}} - {{train.departure_time}} -> {{train.destination}} {{train.arrival_time}}
+    <p>Availability :  <b>{{train.count}}</b></p>
     <a href="{%url 'home-bookform' train.id train.date%}"><button>Book</button></a>
   </li>
   {% endfor %}
-
+</ul>
 {% endblock main %}

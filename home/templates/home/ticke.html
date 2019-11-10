@@ -3,18 +3,18 @@
 
 {% block main %}
     <br>
+    <br>
 
   <div>
-    Passenger name : {{ tic.passenger_name }}<br>
-    PNR number : {{ tic.pnr }}<br>
-    Passenger age : {{ tic.age }}<br>
-    Passenger train : {{ tic.train }}<br>
-    Ticket Status : {{ tic.status }}<br>
-    From : {{ tic.train.source }}<br>
-    To : {{ tic.train.destination }}<br>
-    Date : {{ tic.date }}<br>
+    <h2><b>{{ tic.train.source }} -> {{ tic.train.destination }}</b></h2>
+    <b>Passenger name :</b> {{ tic.passenger_name }}<br>
+    <b>PNR number :</b> {{ tic.pnr }}<br>
+    <b>Passenger age :</b> {{ tic.age }}<br>
+    <b>Passenger train :</b> {{ tic.train }}<br>
+    <b>Ticket Status :</b> {{ tic.status }}<br>
+    <b>Date :</b> {{ tic.date }}<br>
     {% if tic.status == 'Confirm' %}
-    Seat No : {{ tic.seatno }}
+    <b>Seat No :</b> {{ tic.seatno }}
     {% else %}{% endif %}
 </div>
 
