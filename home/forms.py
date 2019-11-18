@@ -5,4 +5,4 @@ class ticket(forms.ModelForm):
     
     class Meta:
         model = Ticket
-        fields = ('passenger_name', 'age', 'date')
+        fields = ('passenger_name', 'age')

@@ -5,6 +5,7 @@ from django.http import HttpResponse,HttpResponseRedirect,JsonResponse
 from .forms import ticket
 from django.conf import settings # new
 from django.views.generic.base import TemplateView
+from datetime import date
 import json
 
 
@@ -12,44 +13,45 @@ import json
 def starting(request):
     user=request.user
     print("jdcncj")
-    return render(request,'home/starting.html',{'user':user})
-
-def trains(request):
-    if request.is_ajax():
+    if request.method == 'POST':
         print("aaya")
         source = request.POST.get('source',None)
         destination = request.POST.get('destination',None)
-        date = request.POST.get('date',None)
+        dat = request.POST.get('date',None)
+        if str(date.today()) > dat:
+            return render(request,'home/starting.html',{'user':user})
         print(source)
         print(destination)
-        print(date)
-        trains=[]
-        ptrains = (Train.objects.filter(source__iexact=source))
-        for i in ptrains:
-            basic=[]
-            print(i.destination.upper())
-            if(i.destination.upper() == destination.upper()):
-                basic.append(i)
-                ticketcheck = Ticket.objects.filter(date=date)
-                countticket =0
-                for j in ticketcheck:
-                        if(j.train == i):
-                                countticket=countticket+1
-                basic.append(countticket)
-                i.count=3-countticket
-                if i.count<=0:
-                        z="WL "
-                        i.count=str((-i.count)+1)
-                        i.count =z+i.count
-                i.date = date
-            trains.append(i)
+        print(dat)
+        return redirect('search', source=source, destination=destination, date=dat)
+    return render(request,'home/starting.html',{'user':user})
 
-        print(trains)
-        print("jbfjbjhfbdubcd")
-        context={'trains':trains}
+def search(request,source,destination,date):
+    trains=[]
+    ptrains = (Train.objects.filter(source__iexact=source))
+    for i in ptrains:
+        basic=[]
+        print(i.destination.upper())
+        if(i.destination.upper() == destination.upper()):
+            basic.append(i)
+            ticketcheck = Ticket.objects.filter(date=date)
+            countticket =0
+            for j in ticketcheck:
+                    if(j.train == i):
+                            countticket=countticket+1
+            basic.append(countticket)
+            i.count=3-countticket
+            if i.count<=0:
+                    z="WL "
+                    i.count=str((-i.count)+1)
+                    i.count =z+i.count
+            i.date = date
+        trains.append(i)
 
-        html = render_to_string('home/trains.html',context,request=request)
-        return JsonResponse({'form': html})
+    print(trains)
+    print("jbfjbjhfbdubcd")
+    context={'trains':trains}
+    return render(request,'home/search.html',context)
 
 def ticketbook(request,id,date):
     train = Train.objects.filter(id=id).first()
@@ -69,6 +71,11 @@ def ticketbk(request,id,date):
 
 def realbook(request,id,date):
     if request.method == 'POST':
+        form = ticket(request.POST)
+        if form.is_valid():
+            passenger_name = form.cleaned_data.get('passenger_name')
+            age = form.cleaned_data.get('age')
+            print(passenger_name)
         user=request.user
         train = Train.objects.filter(id=id).first()
         tcount = Ticket.objects.filter(date=date)
@@ -99,15 +106,14 @@ def realbook(request,id,date):
         po = str(po)
         print(po)
         pnr = str(train.id)+p+str(user.id)+po
-        
-        passenger_name = request.POST.get('name',None)
-        age = request.POST.get('age',None)
-        ticket = Ticket(user=user,
+        # passenger_name = request.POST.get('name',None)
+        # age = request.POST.get('age',None)
+        ticke = Ticket(user=user,
         pnr=pnr,status=status,date=date,train=train,passenger_name=passenger_name,
         age=age,seatno=seatno
         )
-        ticket.save()
-        print(ticket)
+        ticke.save()
+        print(ticke)
         return redirect('tickt', pnr=pnr)
 
 

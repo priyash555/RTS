@@ -30,6 +30,7 @@
 
     <!-- Links -->
     <ul class="navbar-nav mr-auto">
+    {% if user.is_authenticated %}
       <li class="nav-item active">
         <a class="nav-link" href={% url 'home-home' %} >Home
           <span class="sr-only">(current)</span>
@@ -41,6 +42,7 @@
       <li class="nav-item">
         <a class="nav-link" href={% url 'booking' %}>My Bookings</a>
       </li>
+      {% endif %}
       <li class="nav-item">
         <a class="nav-link" href={% url 'about' %}>About</a>
       </li>
@@ -86,6 +88,18 @@
 {% block main %}
 {% endblock main %}
 </div>
+<!-- Footer -->
+{% comment %} <footer class="footer">
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2019 Copyright:
+    <p>RTS</p>
+  </div>
+  <!-- Copyright -->
+
+</footer> {% endcomment %}
+<!-- Footer --> 
+
 <!-- jQuery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- Popper.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 <!-- Bootstrap --><script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
