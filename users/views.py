@@ -24,11 +24,11 @@ def reg(request):
             user = form.save(commit=False)
             user.is_active = False
             user.save()
-            current_site = 'http://arihant.gq'
+            current_site = get_current_site(request)
             mail_subject = 'Activate your RTS account.'
             message = render_to_string('home/acc_active_email.html', {
                 'user': user,
-                'domain': 'http://arihant.gq',
+                'domain': current_site.domain,
                 'uid':urlsafe_base64_encode(force_bytes(user.pk)),
                 'token':account_activation_token.make_token(user),
             })
